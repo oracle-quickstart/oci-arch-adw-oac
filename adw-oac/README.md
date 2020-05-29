@@ -1,4 +1,4 @@
-# oci-arch-adw-oac-no-odi
+# adw-oac
 
 This architecture uses Oracle Autonomous Data Warehouse to load and optimize data from multiple flat-file sources into a centralized data warehouse and then uses Oracle Analytics Cloud to analyze the data to provide actionable insights.
 
