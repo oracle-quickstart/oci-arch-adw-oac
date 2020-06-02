@@ -1,6 +1,8 @@
-# adw-oac
+# adw-odi-oac
 
 This architecture uses Oracle Autonomous Data Warehouse to load and optimize data from multiple flat-file sources into a centralized data warehouse and then uses Oracle Analytics Cloud to analyze the data to provide actionable insights.
+
+The Oracle Data Integrator Component of this architecture needs to be launched using the Oracle Data Integrator marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/62627436)
 
 ## Terraform Provider for Oracle Cloud Infrastructure
 The OCI Terraform Provider is now available for automatic download through the Terraform Provider Registry. 
@@ -16,7 +18,7 @@ and [setup guide](https://www.terraform.io/docs/providers/oci/guides/version-3-u
 Now, you'll want a local copy of this repo. You can make that with the commands:
 
     git clone https://github.com/oracle-quickstart/oci-arch-adw-oac
-    cd adw-oac
+    cd adw-odi-oac
     ls
 
 ## Prerequisites
