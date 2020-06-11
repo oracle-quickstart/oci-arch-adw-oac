@@ -1,6 +1,7 @@
-# adw-odi-oac
+# adw-odi-enrich-data
 
-This architecture uses Oracle Autonomous Data Warehouse to load and optimize data from multiple flat-file sources into a centralized data warehouse and then uses Oracle Analytics Cloud to analyze the data to provide actionable insights.
+This architecture uses Oracle Data Integrator to load and optimize data from multiple into a centralized data warehouse (Oracle Autonomous Data Warehouse). Oracle Streams is used for ingesting continuous, high-volume streams of data into object storage.
+Data Science is used to build, train, and manage machine learning (ML) models in Oracle Cloud Infrastructure. Oracle Analytics Cloud is used to analyze the data to provide actionable insights.
 
 The Oracle Data Integrator Component of this architecture needs to be launched using the Oracle Data Integrator marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/62627436)
 
@@ -18,7 +19,7 @@ and [setup guide](https://www.terraform.io/docs/providers/oci/guides/version-3-u
 Now, you'll want a local copy of this repo. You can make that with the commands:
 
     git clone https://github.com/oracle-quickstart/oci-arch-adw-oac
-    cd adw-odi-oac
+    cd adw-odi-enrich-data
     ls
 
 ## Prerequisites
@@ -41,6 +42,9 @@ region = "<oci_region>"
 
 # Compartment
 compartment_ocid = "<compartment_ocid>"
+
+# Object Storage
+bucket_namespace = "<enter_tenancy_name_here>"
 
 # Autonomous Data Warehouse
 autonomous_database_admin_password="enter-password-here"
@@ -67,11 +71,11 @@ When you no longer need the deployment, you can run this command to destroy it:
     terraform destroy
 
 
-## Architecture
+## Architecture Diagram
 
-![](./images/analysis-ebs.png)
+![](./images/analysis-hcm-architecture.png)
 
 
 ## Reference Archirecture
 
-- [Departmental data warehousing - an EBS integration example](https://docs.oracle.com/en/solutions/oci-ebs-analysis/index.html)
+- [Enterprise data warehousing - an HCM data enrichment example](https://docs.oracle.com/en/solutions/oci-hcm-analysis/index.html)

@@ -64,4 +64,12 @@ When you no longer need the deployment, you can run this command to destroy it:
 
     terraform destroy
 
+## Architecture
+
+![](./images/analysis-spreadsheets-architecture.png)
+
+
+## Reference Archirecture
+
+- [Departmental data warehousing/data marts - consolidate spreadsheets](https://docs.oracle.com/en/solutions/oci-spreadsheet-analysis/index.html)
 
