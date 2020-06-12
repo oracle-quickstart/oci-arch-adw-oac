@@ -7,6 +7,8 @@ Oracle Analytics Cloud is used to analyze the data to provide actionable insight
 
 The Oracle Data Integrator Component of this architecture needs to be launched using the Oracle Data Integrator marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/62627436)
 
+The Oracle GoldenGate Stream Analytics Component of this architecture needs to be launched using the Oracle GoldenGate Stream Analytics marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/70961838)
+
 ## Terraform Provider for Oracle Cloud Infrastructure
 The OCI Terraform Provider is now available for automatic download through the Terraform Provider Registry. 
 For more information on how to get started view the [documentation](https://www.terraform.io/docs/providers/oci/index.html) 
