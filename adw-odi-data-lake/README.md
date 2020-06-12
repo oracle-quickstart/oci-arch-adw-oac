@@ -1,7 +1,9 @@
-# adw-odi-enrich-data
+# adw-odi-data-lake
 
 This architecture uses Oracle Data Integrator to load and optimize data from multiple into a centralized data warehouse (Oracle Autonomous Data Warehouse). Oracle Streams is used for ingesting continuous, high-volume streams of data into object storage.
-Data Science is used to build, train, and manage machine learning (ML) models in Oracle Cloud Infrastructure. Oracle Analytics Cloud is used to analyze the data to provide actionable insights.
+Data Science is used to build, train, and manage machine learning (ML) models in Oracle Cloud Infrastructure. 
+Data Flow is used to run your Apache Spark applications.
+Oracle Analytics Cloud is used to analyze the data to provide actionable insights.
 
 The Oracle Data Integrator Component of this architecture needs to be launched using the Oracle Data Integrator marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/62627436)
 
@@ -73,9 +75,9 @@ When you no longer need the deployment, you can run this command to destroy it:
 
 ## Architecture Diagram
 
-![](./images/analysis-hcm-architecture.png)
+![](./images/analysis-enterprise-and-streamed-data-architecture.png)
 
 
 ## Reference Archirecture
 
-- [Enterprise data warehousing - an HCM data enrichment example](https://docs.oracle.com/en/solutions/oci-hcm-analysis/index.html)
+- [Enterprise data warehousing - an integrated data lake example](https://docs.oracle.com/en/solutions/oci-curated-analysis/index.html)
