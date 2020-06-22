@@ -1,6 +1,6 @@
 # oci-arch-adw-oac
 
-This repository stores 2 examples demonstrating how to provision the infrastructure needed for Autonomous Data Warehouse and Oracle Analytics Cloud
+This repository stores 4 examples demonstrating how to provision the infrastructure needed for Autonomous Data Warehouse and Oracle Analytics Cloud
 
 ## How this project is organized
 
