@@ -41,11 +41,11 @@ variable "ad_name" {
   default = ""
 }
 
+#Variables for Autonomous Data Warehouse
 
 variable "autonomous_database_cpu_core_count" {
-  default = "4"
+  default = "1"
 }
-
 
 variable "autonomous_database_admin_password" {
 }
@@ -56,6 +56,10 @@ variable "autonomous_database_db_name" {
 
 variable "autonomous_database_display_name" {
   default = "My ATP DB"
+}
+
+variable "autonomous_database_db_version" {
+  default = "19c"
 }
 
 variable "autonomous_database_is_auto_scaling_enabled" {
@@ -77,6 +81,12 @@ variable "autonomous_database_license_model" {
 variable "autonomous_database_data_safe_status" {
   default = "NOT_REGISTERED"
 }
+
+variable "autonomous_database_whitelisted_ips" {
+  default = ["240.0.0.0/4"]
+}
+
+#Variables for OAC
 
 variable "analytics_instance_capacity_capacity_type" {}
 
