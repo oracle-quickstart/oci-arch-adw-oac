@@ -3,7 +3,7 @@
 
 resource "oci_objectstorage_bucket" "dataflow_logs_bucket" {
     #Required
-    compartment_id = var.tenancy_ocid
+    compartment_id = var.compartment_ocid
     name = var.dataflow_logs_bucket_name
     namespace = var.bucket_namespace
 
@@ -12,7 +12,6 @@ resource "oci_objectstorage_bucket" "dataflow_logs_bucket" {
     storage_tier = var.bucket_storage_tier
     versioning = var.bucket_versioning
 }
-
 
 resource "oci_dataflow_application" "test_application" {
     #Required
