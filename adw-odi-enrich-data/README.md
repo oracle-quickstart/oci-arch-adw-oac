@@ -19,7 +19,7 @@ and [setup guide](https://www.terraform.io/docs/providers/oci/guides/version-3-u
 Now, you'll want a local copy of this repo. You can make that with the commands:
 
     git clone https://github.com/oracle-quickstart/oci-arch-adw-oac
-    cd adw-odi-enrich-data
+    cd oci-arch-adw-oac/adw-odi-enrich-data
     ls
 
 ## Prerequisites
