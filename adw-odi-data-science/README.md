@@ -1,9 +1,8 @@
 # adw-odi-data-science
 
-This architecture uses Oracle Data Integrator or Data Integration Service to load and optimize data from multiple into a centralized data warehouse (Oracle Autonomous Data Warehouse). Oracle Streams is used for ingesting continuous, high-volume streams of data into object storage.
+This architecture uses Oracle Data Integrator or Data Integration Service to load and optimize data from multiple into an object storage bucket. Oracle Streams is used for ingesting continuous, high-volume streams of data into object storage.
 Data Science is used to build, train, and manage machine learning (ML) models in Oracle Cloud Infrastructure. 
 Data Flow is used to run your Apache Spark applications.
-Oracle Analytics Cloud is used to analyze the data to provide actionable insights.
 
 The Oracle Data Integrator Component of this architecture needs to be launched using the Oracle Data Integrator marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/62627436)
 
@@ -51,16 +50,6 @@ compartment_ocid = "<compartment_ocid>"
 # Object Storage
 bucket_namespace = "<enter_tenancy_name_here>"
 
-# Autonomous Data Warehouse
-autonomous_database_admin_password="enter-password-here"
-
-# Oracle Analytics Cloud
-analytics_instance_capacity_capacity_type="enter_capacity_type_here"
-analytics_instance_capacity_capacity_value="enter_capacity_value_here"
-analytics_instance_feature_set="enter_feature_set_here"
-analytics_instance_license_type="enter_license_type_here"
-analytics_instance_name="enter_OAC_instance_name_here"
-analytics_instance_idcs_access_token="insert_user_IDCS_token_here"
 
 ````
 
