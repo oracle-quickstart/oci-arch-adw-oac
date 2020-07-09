@@ -41,65 +41,6 @@ variable "ad_name" {
   default = ""
 }
 
-#Variables for Autonomous Data Warehouse
-
-variable "autonomous_database_cpu_core_count" {
-  default = "1"
-}
-
-variable "autonomous_database_admin_password" {
-}
-
-variable "autonomous_database_db_name" {
-  default = "aTFdb"
-}
-
-variable "autonomous_database_display_name" {
-  default = "My ATP DB"
-}
-
-variable "autonomous_database_db_version" {
-  default = "19c"
-}
-
-variable "autonomous_database_is_auto_scaling_enabled" {
-  default = "false"
-}
-
-variable "autonomous_database_data_storage_size_in_tbs" {
-  default = "1"
-}
-
-variable "autonomous_database_db_workload" {
-  default = "DW"
-}
-
-variable "autonomous_database_license_model" {
-  default = "BRING_YOUR_OWN_LICENSE"
-}
-
-variable "autonomous_database_data_safe_status" {
-  default = "NOT_REGISTERED"
-}
-
-variable "autonomous_database_whitelisted_ips" {
-  default = ["240.0.0.0/4"]
-}
-
-# OAC Variables
-
-variable "analytics_instance_capacity_capacity_type" {}
-
-variable "analytics_instance_capacity_capacity_value" {}
-
-variable "analytics_instance_feature_set" {}
-
-variable "analytics_instance_license_type" {}
-
-variable "analytics_instance_name" {}
-
-variable "analytics_instance_idcs_access_token" {}
-
 #Object Storage Bucket Variables
 
 variable "bucket_name" {
