@@ -1,4 +1,4 @@
-# adw-odi-data-science
+# odi-data-science
 
 This architecture uses Oracle Data Integrator or Data Integration Service to load and optimize data from multiple into an object storage bucket. Oracle Streams is used for ingesting continuous, high-volume streams of data into object storage.
 Data Science is used to build, train, and manage machine learning (ML) models in Oracle Cloud Infrastructure. 
@@ -21,7 +21,7 @@ and [setup guide](https://www.terraform.io/docs/providers/oci/guides/version-3-u
 Now, you'll want a local copy of this repo. You can make that with the commands:
 
     git clone https://github.com/oracle-quickstart/oci-arch-adw-oac
-    cd oci-arch-adw-oac/adw-odi-data-science
+    cd oci-arch-adw-oac/odi-data-science
     ls
 
 ## Prerequisites
