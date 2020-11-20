@@ -1,0 +1,64 @@
+## Copyright © 2020, Oracle and/or its affiliates. 
+## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
+    title: "Create ODI, ADW and OAC in Oracle Cloud Infrastructure"
+    stackDescription: "Deploy Oracle Database Integrator (ODI), Autonomous Data Warehouse (ADW) and Oracle Analytics Cloud (OAC) in Oracle Cloud Infrastructure."
+    schemaVersion: 1.1.0
+    version: "20190404"
+    locale: "en"
+
+    variableGroups:
+    - title: General Configuration
+      visible: false
+      variables:
+      - tenancy_ocid
+
+    - title: Required Configuration
+      visible: true  
+      variables:
+      - compartment_ocid
+      - region
+      - autonomous_database_admin_password
+      - odi_vnc_password
+      - new_odi_schema_password
+      - analytics_instance_idcs_access_token
+    
+    variables:
+
+      compartment_ocid:
+        type: oci:identity:compartment:id
+        required: true
+        visibile: true
+        title: Compartment
+        description: "Compartment where you want to create the solution resources"
+
+      region:
+        type: oci:identity:region:name
+        required: true
+        visibile: true
+        title: Region
+        description: "Region where you want to deploy the resources defined by this stack."
+
+      autonomous_database_admin_password:
+        type: password
+        required: true
+        title: "ADW Database Password"
+        description: "ADW Database Password for ADMIN user."
+
+      odi_vnc_password:
+        type: password
+        required: true
+        title: "VNC Password for accessing ODI compute instance"
+        description: "VNC Password for accessing Oracle Data Integrator (ODI) compute instance."
+
+      new_odi_schema_password:
+        type: password
+        required: true
+        title: "ODI database schema password"
+        description: "Oracle Data Integrator (ODI) database schema password."
+
+      analytics_instance_idcs_access_token:
+        type: password
+        required: true
+        title: "IDCS Acccess Token for OAC"
+        description: "IDCS Acccess Token required by Oracle Analytics Cloud (OAC)."
