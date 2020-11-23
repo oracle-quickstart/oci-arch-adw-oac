@@ -39,6 +39,22 @@
       - instance_shape
       - vcn_cidr
       - create_public_subnet
+      - autonomous_database_cpu_core_count
+      - autonomous_database_db_name
+      - autonomous_database_display_name 
+      - autonomous_database_db_version
+      - autonomous_database_is_auto_scaling_enabled
+      - autonomous_database_data_storage_size_in_tbs
+      - autonomous_database_license_model
+      - autonomous_database_data_safe_status
+      - autonomous_database_whitelisted_ips
+      - analytics_instance_capacity_capacity_type
+      - analytics_instance_capacity_capacity_value
+      - analytics_instance_feature_set
+      - analytics_instance_license_type
+      - analytics_instance_name
+      - catalog_display_name
+
     
     variables:
 
@@ -171,3 +187,77 @@
         visible: false
         default: true
         description: "ODI Create Public Subnet (with bastion)"
+
+      autonomous_database_cpu_core_count:
+        type: string
+        default: "1"
+        visible: true
+        required: false
+        title: "ADW database CPU core count"
+        description: "Autonomous Data Warehouse (ADW) CPU core count"
+
+      autonomous_database_db_name:
+        type: string
+        default: "aTFdb"
+        visible: true
+        required: false
+        title: "ADW database name"
+        description: "Autonomous Data Warehouse (ADW) Database name"
+
+      autonomous_database_display_name:
+        type: string
+        default: "My ATP DB"
+        visible: true
+        required: false
+        title: "ADW database display name"
+        description: "Autonomous Data Warehouse (ADW) Database display name"
+
+      autonomous_database_db_version: 
+        type: string
+        default: "19c"
+        visible: true
+        required: false
+        title: "ADW database version"
+        description: "Autonomous Data Warehouse (ADW) Database version"
+
+      autonomous_database_is_auto_scaling_enabled: 
+        type: boolean
+        default: false 
+        visible: true
+        required: false
+        title: "ADW database auto-scalling enabled"
+        description: "Autonomous Data Warehouse (ADW) auto-scalling enabled"
+
+      autonomous_database_data_storage_size_in_tbs: 
+        type: string
+        default: "1"
+        visible: true
+        required: false
+        title: "ADW database data storage size in TBs"
+        description: "Autonomous Data Warehouse (ADW) data storage size in terabytes."
+
+      autonomous_database_license_model:
+        type: string
+        default: "BRING_YOUR_OWN_LICENSE"
+        visible: true
+        required: false
+        title: "ADW databaselicense model"
+        description: "Autonomous Data Warehouse (ADW) license model."
+
+      autonomous_database_data_safe_status:
+        type: string
+        default: "NOT_REGISTERED" 
+        visible: true
+        required: false
+        title: "ADW database DataSafe status"
+        description: "Autonomous Data Warehouse (ADW) DataSafe status."
+
+      catalog_display_name:
+        type: string
+        default: "My_Data_Catalog"
+        visible: true
+        required: false
+        title: "OCI DataCatalog display name"
+        description: "OCI DataCatalog display name"
+
+
