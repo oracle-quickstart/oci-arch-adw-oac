@@ -105,7 +105,7 @@
         description: "Oracle Data Integrator (ODI) database schema password."
 
       analytics_instance_idcs_access_token:
-        type: password
+        type: text
         required: true
         title: "IDCS Acccess Token for OAC"
         description: "IDCS Acccess Token required by Oracle Analytics Cloud (OAC)."
