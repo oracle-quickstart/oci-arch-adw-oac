@@ -3,7 +3,6 @@
 
 module "network" {
   source                = "github.com/oracle-quickstart/oci-oracle-data-integrator/modules/network"
-  #source                = "github.com/lfeldman/oci-oracle-data-integrator/modules/network"
   display_name_prefix   = local.resource_name_prefix
   compartment_id        = var.compartment_ocid
   vcn_cidr              = var.vcn_cidr

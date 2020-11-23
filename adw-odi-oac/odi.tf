@@ -4,7 +4,6 @@
 module "odi" {
   depends_on = [oci_identity_policy.odi_policy, oci_database_autonomous_database.test_autonomous_database]
   source = "github.com/oracle-quickstart/oci-oracle-data-integrator/modules/odi"
-#  source = "github.com/lfeldman/oci-oracle-data-integrator/modules/odi"
   compartment_id       = var.compartment_ocid
   region               = var.region
   availability_domain  = lookup(data.oci_identity_availability_domains.ADs.availability_domains[0], "name")
@@ -16,7 +15,6 @@ module "odi" {
   node_hostname_prefix = "oracle-odi-inst"
   shape                = var.instance_shape
   subnet_id            = module.network.application_subnet_id 
-#  subnet_id            = oci_core_subnet.app_subnet.id
   assign_public_ip     = false
   odi_vnc_password     = var.odi_vnc_password
   adw_instance         = oci_database_autonomous_database.test_autonomous_database.id

@@ -3,7 +3,6 @@
 
 module "bastion" {
   source              = "github.com/oracle-quickstart/oci-oracle-data-integrator/modules/bastion"
-  #source              = "github.com/lfeldman/oci-oracle-data-integrator/modules/bastion"
   enabled             = var.create_public_subnet ? false : true
   compartment_id      = var.compartment_ocid
   region              = var.region
