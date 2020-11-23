@@ -3,6 +3,17 @@
 
 # Get list of availability domains
 
-data "oci_identity_availability_domains" "ads" {
+data "oci_identity_availability_domains" "ADs" {
   compartment_id = var.tenancy_ocid
+}
+
+# Gets the partner image subscription
+data "oci_core_app_catalog_subscriptions" "mp_image_subscription" {
+  count          = var.use_marketplace_image ? 1 : 0
+  compartment_id = var.compartment_ocid
+  listing_id     = var.mp_listing_id
+  filter {
+    name   = "listing_resource_version"
+    values = [var.mp_listing_resource_version]
+  }
 }
