@@ -260,4 +260,36 @@
         title: "OCI DataCatalog display name"
         description: "OCI DataCatalog display name"
 
+      analytics_instance_capacity_capacity_type:
+        type: string
+        default: "OLPU_COUNT"
+        visible: true
+        required: false
+        title: "OAC instance capacity type"
+        description: "Oracle Analytics Cloud (OAC) instance capacity type"
+
+      analytics_instance_feature_set: 
+        type: string
+        default: "ENTERPRISE_ANALYTICS"
+        visible: true
+        required: false
+        title: "OAC instance feature set"
+        description: "Oracle Analytics Cloud (OAC) instance feature set"
+
+      analytics_instance_license_type: 
+        type: string
+        default: "LICENSE_INCLUDED"
+        visible: true
+        required: false
+        title: "OAC instance license_type"
+        description: "Oracle Analytics Cloud (OAC) instance license_type"
+
+      analytics_instance_name:
+        type: string
+        default: "OAC"
+        visible: true
+        required: false
+        title: "OAC instance name"
+        description: "Oracle Analytics Cloud (OAC) instance name"
+
 
