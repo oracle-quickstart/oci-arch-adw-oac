@@ -7,7 +7,7 @@ variable "compartment_ocid" {}
 variable "region" {}
 variable "user_ocid" {}
 variable "fingerprint" {}
-variable "private_key_path" {}
+#variable "private_key_path" {}
 
 variable "service_name" {
   default = ""
@@ -46,9 +46,6 @@ variable "instance_shape" {
   default = "VM.Standard2.16"
 }
 
-#variable "ssh_public_key" {}
-
-
 variable "vcn_cidr" {
   default = "10.1.0.0/16"
 }
@@ -60,58 +57,58 @@ variable "create_public_subnet" {
 variable "odi_vnc_password" {
 }
 
-variable "subnet" {
-  default = ""
-}
+#variable "subnet" {
+#  default = ""
+#}
 
-variable "subnetCompartment" {
-  default = ""
-}
+#variable "subnetCompartment" {
+#  default = ""
+#}
 
-variable "vcn" {
-  default = ""
-}
+#variable "vcn" {
+#  default = ""
+#}
 
-variable "vcnCompartment" {
-  default = ""
-}
+#variable "vcnCompartment" {
+#  default = ""
+#}
 
-variable "assign_public_ip" {
-  default = false
-}
+#variable "assign_public_ip" {
+#  default = false
+#}
 
 #variable "odi_repo" {
 #  default = ""
 #}
 
-variable "adw_instance" {
-  default = "adwctry1"
-}
+#variable "adw_instance" {
+#  default = "adwctry1"
+#}
 
-variable "adw_password" {
-  default = ""
-}
+#variable "adw_password" {
+#  default = ""
+#}
 
-variable "odi_password" {
-  default = ""
-}
+#variable "odi_password" {
+#  default = ""
+#}
 
-variable "odi_schema_prefix" {
-  default = ""
-}
+#variable "odi_schema_prefix" {
+#  default = ""
+#}
 
-variable "odi_schema_password" {
-  default = ""
-}
+#variable "odi_schema_password" {
+#  default = ""
+#}
 
-variable "new_adw_instance" {
-  default = ""
-}
+#variable "new_adw_instance" {
+#  default = ""
+#}
 
 
-variable "new_adw_password" {
-  default = ""
-}
+#variable "new_adw_password" {
+#  default = ""
+#}
 
 variable "new_odi_password" {
   default = ""

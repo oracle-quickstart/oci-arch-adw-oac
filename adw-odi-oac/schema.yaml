@@ -20,8 +20,25 @@
       - region
       - autonomous_database_admin_password
       - odi_vnc_password
+      - new_odi_password
+      - new_odi_schema_prefix
       - new_odi_schema_password
       - analytics_instance_idcs_access_token
+
+    - title: Optional Configuration
+      visible: true
+      variables:      
+      - service_name
+      - advanced_mode
+      - runtime_mode
+      - quick_create
+      - use_marketplace_image
+      - mp_listing_id
+      - mp_listing_resource_version
+      - mp_listing_resource_id
+      - instance_shape
+      - vcn_cidr
+      - create_public_subnet
     
     variables:
 
@@ -51,6 +68,20 @@
         title: "VNC Password for accessing ODI compute instance"
         description: "VNC Password for accessing Oracle Data Integrator (ODI) compute instance."
 
+      new_odi_password:
+        type: password
+        required: true
+        default: ""
+        title: "ODI database password"
+        description: "Oracle Data Integrator (ODI) Password."
+
+      new_odi_schema_prefix:
+        type: string
+        required: true
+        default: "odi"
+        title: "ODI database schema prefix"
+        description: "Oracle Data Integrator (ODI) database schema prefix."
+
       new_odi_schema_password:
         type: password
         required: true
@@ -62,3 +93,81 @@
         required: true
         title: "IDCS Acccess Token for OAC"
         description: "IDCS Acccess Token required by Oracle Analytics Cloud (OAC)."
+
+      # Optional Configuration
+      service_name:
+        type: string
+        required: false
+        visible: false
+        default: ""
+        description: "Service Name Prefix for the resources to be created."
+      
+      advanced_mode:
+        type: boolean
+        required: false
+        visible: false
+        default: ""
+        description: "Service Name Prefix for the resources to be created."
+
+      runtime_mode:
+        type: string
+        required: false
+        visible: false
+        default: "production"
+        description: "ODI Runtime Mode."
+
+      quick_create:
+        type: boolean
+        required: false
+        visible: false
+        default: ""
+        description: "ODI Quick Create."
+      
+      use_marketplace_image:
+        type: boolean
+        required: false
+        visible: false
+        default: true
+        description: "ODI usage of OCI Marketplace image"
+
+      mp_listing_id:
+        type: string
+        required: false
+        visible: false
+        default: "ocid1.appcataloglisting.oc1..aaaaaaaat7fdtoicx5x34ofrcckfoimlrjb4tly5pgm3qfoyqssp2qnvsl6q"
+        description: "ODI OCI Marketplace Listing OCID"
+
+      mp_listing_resource_version:
+        type: string
+        required: false
+        visible: false
+        default: "ODI_Marketplace_V12.2.1.4.200721a"
+        description: "ODI OCI Marketplace Listing Resource Version"
+
+      mp_listing_resource_id:
+        type: string
+        required: false
+        visible: false
+        default: "ocid1.image.oc1..aaaaaaaa6khjykwya7brreppxvtiuifnolxmmgufcfbtwvugtui5kjjzz4sa"
+        description: "ODI OCI Marketplace Listing Resource OCID"
+
+      instance_shape:
+        type: string
+        required: false
+        visible: true
+        default: "VM.Standard2.16"
+        description: "ODI Compute Instance Shape"
+
+      vcn_cidr:  
+        type: string
+        required: false
+        default: "10.0.0.0/16"
+        pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+        description: "VCN CIDR block where you want to create the solution resources."
+   
+      create_public_subnet:
+        type: boolean
+        required: false
+        visible: false
+        default: true
+        description: "ODI Create Public Subnet (with bastion)"

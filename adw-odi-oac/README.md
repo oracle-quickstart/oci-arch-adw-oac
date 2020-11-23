@@ -2,7 +2,7 @@
 
 This architecture uses Oracle Autonomous Data Warehouse to load and optimize data from multiple flat-file sources into a centralized data warehouse and then uses Oracle Analytics Cloud to analyze the data to provide actionable insights.
 
-The Oracle Data Integrator Component of this architecture needs to be launched using the Oracle Data Integrator marketplace image (https://cloudmarketplace.oracle.com/marketplace/en_US/listing/62627436)
+The Oracle Data Integrator Component of this architecture has been build with the usage of Terraform remote modules (http://github.com/lfeldman/oci-oracle-data-integrator/modules/)
 
 For details of the architecture, see [_Departmental data warehousing - an EBS integration example_](https://docs.oracle.com/en/solutions/oci-ebs-analysis/index.html)
 
