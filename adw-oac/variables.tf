@@ -83,14 +83,24 @@ variable "autonomous_database_whitelisted_ips" {
   default = ["240.0.0.0/4"]
 }
 
-variable "analytics_instance_capacity_capacity_type" {}
+variable "analytics_instance_capacity_capacity_type" {
+  default = "OLPU_COUNT"
+}
 
-variable "analytics_instance_capacity_capacity_value" {}
+variable "analytics_instance_capacity_capacity_value" {
+  default = 1
+}
 
-variable "analytics_instance_feature_set" {}
+variable "analytics_instance_feature_set" {
+  default = "ENTERPRISE_ANALYTICS"
+}
 
-variable "analytics_instance_license_type" {}
+variable "analytics_instance_license_type" {
+  default = "LICENSE_INCLUDED"
+}
 
-variable "analytics_instance_name" {}
+variable "analytics_instance_name" {
+  default = "OAC"
+}
 
 variable "analytics_instance_idcs_access_token" {}
