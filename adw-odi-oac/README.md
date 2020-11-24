@@ -10,7 +10,7 @@ For details of the architecture, see [_Departmental data warehousing - an EBS in
 
 - Permission to `manage` the following types of resources in your Oracle Cloud Infrastructure tenancy: `vcns`, `internet-gateways`, `route-tables`, `network-security-groups`, `subnets`, `autonomous-database-family`, and `instances`.
 
-- Quota to create the following resources: 1 VCN, 2 subnets, 1 Internet Gateway, 1 NAT Gateway, 2 route rules, 1 ATP database instance, and 1 compute instance.
+- Quota to create the following resources: 1 VCN, 2 subnets, 1 Internet Gateway, 1 NAT Gateway, 2 route rules, 1 ADW database instance, 1 DataCatalog instance, 1 Oracle Analytics Cloud (OAC) instance, and 2 compute instances (bastion + ODI compute node).
 
 If you don't have the required permissions and quota, contact your tenancy administrator. See [Policy Reference](https://docs.cloud.oracle.com/en-us/iaas/Content/Identity/Reference/policyreference.htm), [Service Limits](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm), [Compartment Quotas](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcequotas.htm).
 
@@ -70,7 +70,7 @@ analytics_instance_capacity_capacity_type="<enter_capacity_type_here>"
 analytics_instance_capacity_capacity_value="<enter_capacity_value_here>"
 analytics_instance_feature_set="<enter_feature_set_here>"
 analytics_instance_license_type="<enter_license_type_here>"
-analytics_instance_name="<enter_OAC_instance_name_here<"
+analytics_instance_name="<enter_OAC_instance_name_here>"
 analytics_instance_idcs_access_token="<insert_user_IDCS_token_here>"
 
 ````
