@@ -252,6 +252,14 @@
         title: "ADW database DataSafe status"
         description: "Autonomous Data Warehouse (ADW) DataSafe status."
 
+      autonomous_database_whitelisted_ips:
+        type: string
+        default: "[\"240.0.0.0/4\"]"
+        visible: true
+        required: false
+        title: "ADW database whitelisted IPs"
+        description: "Autonomous Data Warehouse (ADW) whitelisted IPs."
+
       catalog_display_name:
         type: string
         default: "My_Data_Catalog"
