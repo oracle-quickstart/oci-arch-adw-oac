@@ -59,6 +59,7 @@ variable "autonomous_database_data_safe_status" {
 }
 
 variable "autonomous_database_whitelisted_ips" {
+  type    = list(string)
   default = ["240.0.0.0/4"]
 }
 
