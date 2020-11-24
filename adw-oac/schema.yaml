@@ -143,6 +143,14 @@
         title: "ADW database DataSafe status"
         description: "Autonomous Data Warehouse (ADW) DataSafe status."
 
+      autonomous_database_whitelisted_ips
+        type: string
+        default: '["240.0.0.0/4"]'
+        visible: true
+        required: false
+        title: "ADW database whitelisted IPs"
+        description: "Autonomous Data Warehouse (ADW) whitelisted IPs."
+
       analytics_instance_capacity_capacity_type:
         type: string
         default: "OLPU_COUNT"
