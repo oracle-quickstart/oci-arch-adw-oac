@@ -254,7 +254,7 @@
 
       autonomous_database_whitelisted_ips:
         type: string
-        default: "[\"240.0.0.0/4\"]"
+        default: "[\"\"]"
         visible: true
         required: false
         title: "ADW database whitelisted IPs"
