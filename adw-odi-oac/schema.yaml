@@ -1,303 +1,337 @@
 ## Copyright © 2020, Oracle and/or its affiliates. 
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
-    title: "Create ODI, ADW and OAC in Oracle Cloud Infrastructure"
-    stackDescription: "Deploy Oracle Database Integrator (ODI), Autonomous Data Warehouse (ADW) and Oracle Analytics Cloud (OAC) in Oracle Cloud Infrastructure."
-    schemaVersion: 1.1.0
-    version: "20190404"
-    locale: "en"
+title: "Create ODI, ADW and OAC in Oracle Cloud Infrastructure"
+stackDescription: "Deploy Oracle Database Integrator (ODI), Autonomous Data Warehouse (ADW) and Oracle Analytics Cloud (OAC) in Oracle Cloud Infrastructure."
+schemaVersion: 1.1.0
+version: "20190404"
+locale: "en"
 
-    variableGroups:
-    - title: General Configuration
-      visible: false
-      variables:
-      - tenancy_ocid
+variableGroups:
+- title: General Configuration
+  visible: false
+  variables:
+  - tenancy_ocid
 
-    - title: Required Configuration
-      visible: true  
-      variables:
-      - compartment_ocid
-      - region
-      - autonomous_database_admin_password
-      - odi_vnc_password
-      - new_odi_password
-      - new_odi_schema_prefix
-      - new_odi_schema_password
-      - analytics_instance_idcs_access_token
+- title: Required Configuration
+  visible: true  
+  variables:
+  - compartment_ocid
+  - region
+  - autonomous_database_admin_password
+  - odi_vnc_password
+  - new_odi_password
+  - new_odi_schema_prefix
+  - new_odi_schema_password
+  - analytics_instance_idcs_access_token
 
-    - title: Optional Configuration
-      visible: true
-      variables:      
-      - service_name
-      - advanced_mode
-      - runtime_mode
-      - quick_create
-      - use_marketplace_image
-      - mp_listing_id
-      - mp_listing_resource_version
-      - mp_listing_resource_id
-      - instance_shape
-      - vcn_cidr
-      - create_public_subnet
-      - autonomous_database_cpu_core_count
-      - autonomous_database_db_name
-      - autonomous_database_display_name 
-      - autonomous_database_db_version
-      - autonomous_database_is_auto_scaling_enabled
-      - autonomous_database_data_storage_size_in_tbs
-      - autonomous_database_license_model
-      - autonomous_database_data_safe_status
-      - autonomous_database_whitelisted_ips
-      - analytics_instance_capacity_capacity_type
-      - analytics_instance_capacity_capacity_value
-      - analytics_instance_feature_set
-      - analytics_instance_license_type
-      - analytics_instance_name
-      - catalog_display_name
+- title: Optional Configuration
+  visible: true
+  variables:  
+  - service_name
+  - advanced_mode
+  - runtime_mode
+  - quick_create
+  - use_marketplace_image
+  - mp_listing_id
+  - mp_listing_resource_version
+  - mp_listing_resource_id
+  - instance_shape
+  - vcn_cidr
+  - create_public_subnet
+  - autonomous_database_cpu_core_count
+  - autonomous_database_db_name
+  - autonomous_database_display_name 
+  - autonomous_database_db_version
+  - autonomous_database_is_auto_scaling_enabled
+  - autonomous_database_data_storage_size_in_tbs
+  - autonomous_database_license_model
+  - autonomous_database_data_safe_status
+  - autonomous_database_whitelisted_ips
+  - analytics_instance_capacity_capacity_type
+  - analytics_instance_capacity_capacity_value
+  - analytics_instance_feature_set
+  - analytics_instance_license_type
+  - analytics_instance_name
+  - catalog_display_name
 
     
-    variables:
+variables:
 
-      compartment_ocid:
-        type: oci:identity:compartment:id
-        required: true
-        visibile: true
-        title: Compartment
-        description: "Compartment where you want to create the solution resources"
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    visibile: true
+    title: Compartment
+    description: "Compartment where you want to create the solution resources"
 
-      region:
-        type: oci:identity:region:name
-        required: true
-        visibile: true
-        title: Region
-        description: "Region where you want to deploy the resources defined by this stack."
+  region:
+    type: oci:identity:region:name
+    required: true
+    visibile: true
+    title: Region
+    description: "Region where you want to deploy the resources defined by this stack."
 
-      autonomous_database_admin_password:
-        type: password
-        required: true
-        title: "ADW Database Password"
-        description: "ADW Database Password for ADMIN user."
+  autonomous_database_admin_password:
+    type: password
+    required: true
+    title: "ADW Database Password"
+    description: "ADW Database Password for ADMIN user."
+    minLength: 12
+    maxLength: 30
+    pattern: ^[A-Za-z][A-Za-z0-9_#\$]+$ 
 
-      odi_vnc_password:
-        type: password
-        required: true
-        title: "VNC Password for accessing ODI compute instance"
-        description: "VNC Password for accessing Oracle Data Integrator (ODI) compute instance."
+  odi_vnc_password:
+    type: password
+    required: true
+    title: "VNC Password for accessing ODI compute instance"
+    description: "VNC Password for accessing Oracle Data Integrator (ODI) compute instance."
+    minLength: 12
+    maxLength: 30
+    pattern: ^[A-Za-z][A-Za-z0-9_#\$]+$ 
 
-      new_odi_password:
-        type: password
-        required: true
-        default: ""
-        title: "ODI database password"
-        description: "Oracle Data Integrator (ODI) Password."
+  new_odi_password:
+    type: password
+    required: true
+    default: ""
+    title: "ODI database password"
+    description: "Oracle Data Integrator (ODI) Password."
+    minLength: 12
+    maxLength: 30
+    pattern: ^[A-Za-z][A-Za-z0-9_#\$]+$ 
 
-      new_odi_schema_prefix:
-        type: string
-        required: true
-        default: "odi"
-        title: "ODI database schema prefix"
-        description: "Oracle Data Integrator (ODI) database schema prefix."
+  new_odi_schema_prefix:
+    type: string
+    required: true
+    default: "odi"
+    title: "ODI database schema prefix"
+    description: "Oracle Data Integrator (ODI) database schema prefix."
 
-      new_odi_schema_password:
-        type: password
-        required: true
-        title: "ODI database schema password"
-        description: "Oracle Data Integrator (ODI) database schema password."
+  new_odi_schema_password:
+    type: password
+    required: true
+    title: "ODI database schema password"
+    description: "Oracle Data Integrator (ODI) database schema password."
+    minLength: 12
+    maxLength: 30
+    pattern: ^[A-Za-z][A-Za-z0-9_#\$]+$ 
 
-      analytics_instance_idcs_access_token:
-        type: text
-        required: true
-        title: "IDCS Acccess Token for OAC"
-        description: "IDCS Acccess Token required by Oracle Analytics Cloud (OAC)."
+  analytics_instance_idcs_access_token:
+    type: text
+    required: true
+    title: "IDCS Acccess Token for OAC"
+    description: "IDCS Acccess Token required by Oracle Analytics Cloud (OAC)."
 
-      # Optional Configuration
-      service_name:
-        type: string
-        required: false
-        visible: false
-        default: ""
-        description: "Service Name Prefix for the resources to be created."
-      
-      advanced_mode:
-        type: boolean
-        required: false
-        visible: false
-        default: ""
-        description: "Service Name Prefix for the resources to be created."
+  # Optional Configuration
+  service_name:
+    type: string
+    required: false
+    visible: false
+    default: ""
+    description: "Service Name Prefix for the resources to be created."
+  
+  advanced_mode:
+    type: boolean
+    required: false
+    visible: false
+    default: ""
+    description: "Service Name Prefix for the resources to be created."
 
-      runtime_mode:
-        type: string
-        required: false
-        visible: false
-        default: "production"
-        description: "ODI Runtime Mode."
+  runtime_mode:
+    type: string
+    required: false
+    visible: false
+    default: "production"
+    description: "ODI Runtime Mode."
 
-      quick_create:
-        type: boolean
-        required: false
-        visible: false
-        default: ""
-        description: "ODI Quick Create."
-      
-      use_marketplace_image:
-        type: boolean
-        required: false
-        visible: false
-        default: true
-        description: "ODI usage of OCI Marketplace image"
+  quick_create:
+    type: boolean
+    required: false
+    visible: false
+    default: ""
+    description: "ODI Quick Create."
+  
+  use_marketplace_image:
+    type: boolean
+    required: false
+    visible: false
+    default: true
+    description: "ODI usage of OCI Marketplace image"
 
-      mp_listing_id:
-        type: string
-        required: false
-        visible: false
-        default: "ocid1.appcataloglisting.oc1..aaaaaaaat7fdtoicx5x34ofrcckfoimlrjb4tly5pgm3qfoyqssp2qnvsl6q"
-        description: "ODI OCI Marketplace Listing OCID"
+  mp_listing_id:
+    type: string
+    required: false
+    visible: false
+    default: "ocid1.appcataloglisting.oc1..aaaaaaaat7fdtoicx5x34ofrcckfoimlrjb4tly5pgm3qfoyqssp2qnvsl6q"
+    description: "ODI OCI Marketplace Listing OCID"
 
-      mp_listing_resource_version:
-        type: string
-        required: false
-        visible: false
-        default: "ODI_Marketplace_V12.2.1.4.200721a"
-        description: "ODI OCI Marketplace Listing Resource Version"
+  mp_listing_resource_version:
+    type: string
+    required: false
+    visible: false
+    default: "ODI_Marketplace_V12.2.1.4.200721a"
+    description: "ODI OCI Marketplace Listing Resource Version"
 
-      mp_listing_resource_id:
-        type: string
-        required: false
-        visible: false
-        default: "ocid1.image.oc1..aaaaaaaa6khjykwya7brreppxvtiuifnolxmmgufcfbtwvugtui5kjjzz4sa"
-        description: "ODI OCI Marketplace Listing Resource OCID"
+  mp_listing_resource_id:
+    type: string
+    required: false
+    visible: false
+    default: "ocid1.image.oc1..aaaaaaaa6khjykwya7brreppxvtiuifnolxmmgufcfbtwvugtui5kjjzz4sa"
+    description: "ODI OCI Marketplace Listing Resource OCID"
 
-      instance_shape:
-        type: string
-        required: false
-        visible: true
-        default: "VM.Standard2.16"
-        description: "ODI Compute Instance Shape"
+  instance_shape:
+    type: oci:core:instanceshape:name
+    required: false
+    visible: true
+    default: "VM.Standard2.16"
+    description: "ODI Compute Instance Shape"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
 
-      vcn_cidr:  
-        type: string
-        required: false
-        default: "10.0.0.0/16"
-        pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-        description: "VCN CIDR block where you want to create the solution resources."
+  vcn_cidr:  
+    type: string
+    required: false
+    default: "10.0.0.0/16"
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    description: "VCN CIDR block where you want to create the solution resources."
    
-      create_public_subnet:
-        type: boolean
-        required: false
-        visible: false
-        default: true
-        description: "ODI Create Public Subnet (with bastion)"
+  create_public_subnet:
+    type: boolean
+    required: false
+    visible: false
+    default: true
+    description: "ODI Create Public Subnet (with bastion)"
 
-      autonomous_database_cpu_core_count:
-        type: string
-        default: "1"
-        visible: true
-        required: false
-        title: "ADW database CPU core count"
-        description: "Autonomous Data Warehouse (ADW) CPU core count"
+  autonomous_database_cpu_core_count:
+    type: number
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 1
+    visible: true
+    required: false
+    title: "ADW database CPU core count"
+    description: "Autonomous Data Warehouse (ADW) CPU core count"
 
-      autonomous_database_db_name:
-        type: string
-        default: "aTFdb"
-        visible: true
-        required: false
-        title: "ADW database name"
-        description: "Autonomous Data Warehouse (ADW) Database name"
+  autonomous_database_db_name:
+    type: string
+    default: "aTFdb"
+    visible: true
+    required: false
+    title: "ADW database name"
+    description: "Autonomous Data Warehouse (ADW) Database name"
 
-      autonomous_database_display_name:
-        type: string
-        default: "My ATP DB"
-        visible: true
-        required: false
-        title: "ADW database display name"
-        description: "Autonomous Data Warehouse (ADW) Database display name"
+  autonomous_database_display_name:
+    type: string
+    default: "My ATP DB"
+    visible: true
+    required: false
+    title: "ADW database display name"
+    description: "Autonomous Data Warehouse (ADW) Database display name"
 
-      autonomous_database_db_version: 
-        type: string
-        default: "19c"
-        visible: true
-        required: false
-        title: "ADW database version"
-        description: "Autonomous Data Warehouse (ADW) Database version"
+  autonomous_database_db_version: 
+    type: enum
+    default: "19c"
+    visible: true
+    required: false
+    title: "ADW database version"
+    description: "Autonomous Data Warehouse (ADW) Database version"
+    enum:
+      - "19c"
 
-      autonomous_database_is_auto_scaling_enabled: 
-        type: boolean
-        default: false 
-        visible: true
-        required: false
-        title: "ADW database auto-scalling enabled"
-        description: "Autonomous Data Warehouse (ADW) auto-scalling enabled"
+  autonomous_database_is_auto_scaling_enabled: 
+    type: boolean
+    default: false 
+    visible: true
+    required: false
+    title: "ADW database auto-scalling enabled"
+    description: "Autonomous Data Warehouse (ADW) auto-scalling enabled"
 
-      autonomous_database_data_storage_size_in_tbs: 
-        type: string
-        default: "1"
-        visible: true
-        required: false
-        title: "ADW database data storage size in TBs"
-        description: "Autonomous Data Warehouse (ADW) data storage size in terabytes."
+  autonomous_database_data_storage_size_in_tbs: 
+    type: number
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 1
+    visible: true
+    required: false
+    title: "ADW database data storage size in TBs"
+    description: "Autonomous Data Warehouse (ADW) data storage size in terabytes."
 
-      autonomous_database_license_model:
-        type: string
-        default: "BRING_YOUR_OWN_LICENSE"
-        visible: true
-        required: false
-        title: "ADW databaselicense model"
-        description: "Autonomous Data Warehouse (ADW) license model."
+  autonomous_database_license_model:
+    type: enum
+    default: "BRING_YOUR_OWN_LICENSE"
+    visible: true
+    required: false
+    title: "ADW databaselicense model"
+    description: "Autonomous Data Warehouse (ADW) license model."
+    enum:
+      - "LICENSE_INCLUDED"
+      - "BRING_YOUR_OWN_LICENSE"
 
-      autonomous_database_data_safe_status:
-        type: string
-        default: "NOT_REGISTERED" 
-        visible: true
-        required: false
-        title: "ADW database DataSafe status"
-        description: "Autonomous Data Warehouse (ADW) DataSafe status."
+  autonomous_database_data_safe_status:
+    type: enum
+    default: "NOT_REGISTERED" 
+    visible: true
+    required: false
+    title: "ADW database DataSafe status"
+    description: "Autonomous Data Warehouse (ADW) DataSafe status."
+    enum:
+      - "NOT_REGISTERED"
 
-      autonomous_database_whitelisted_ips:
-        type: string
-        default: "[\"\"]"
-        visible: true
-        required: false
-        title: "ADW database whitelisted IPs"
-        description: "Autonomous Data Warehouse (ADW) whitelisted IPs."
+  autonomous_database_whitelisted_ips:
+    type: string
+    default: "[\"\"]"
+    visible: true
+    required: false
+    title: "ADW database whitelisted IPs"
+    description: "Autonomous Data Warehouse (ADW) whitelisted IPs."
 
-      catalog_display_name:
-        type: string
-        default: "My_Data_Catalog"
-        visible: true
-        required: false
-        title: "OCI DataCatalog display name"
-        description: "OCI DataCatalog display name"
+  catalog_display_name:
+    type: string
+    default: "My_Data_Catalog"
+    visible: true
+    required: false
+    title: "OCI DataCatalog display name"
+    description: "OCI DataCatalog display name"
 
-      analytics_instance_capacity_capacity_type:
-        type: string
-        default: "OLPU_COUNT"
-        visible: true
-        required: false
-        title: "OAC instance capacity type"
-        description: "Oracle Analytics Cloud (OAC) instance capacity type"
+  analytics_instance_capacity_capacity_type:
+    type: enum
+    default: "OLPU_COUNT"
+    visible: true
+    required: false
+    title: "OAC instance capacity type"
+    description: "Oracle Analytics Cloud (OAC) instance capacity type"
+    enum:
+      - "OLPU_COUNT"
 
-      analytics_instance_feature_set: 
-        type: string
-        default: "ENTERPRISE_ANALYTICS"
-        visible: true
-        required: false
-        title: "OAC instance feature set"
-        description: "Oracle Analytics Cloud (OAC) instance feature set"
+  analytics_instance_feature_set: 
+    type: enum
+    default: "ENTERPRISE_ANALYTICS"
+    visible: true
+    required: false
+    title: "OAC instance feature set"
+    description: "Oracle Analytics Cloud (OAC) instance feature set"
+    enum:
+      - "ENTERPRISE_ANALYTICS"
 
-      analytics_instance_license_type: 
-        type: string
-        default: "LICENSE_INCLUDED"
-        visible: true
-        required: false
-        title: "OAC instance license_type"
-        description: "Oracle Analytics Cloud (OAC) instance license_type"
+  analytics_instance_license_type: 
+    type: enum
+    default: "LICENSE_INCLUDED"
+    visible: true
+    required: false
+    title: "OAC instance license_type"
+    description: "Oracle Analytics Cloud (OAC) instance license_type"
+    enum:
+      - "LICENSE_INCLUDED"
+      - "BRING_YOUR_OWN_LICENSE"
 
-      analytics_instance_name:
-        type: string
-        default: "OAC"
-        visible: true
-        required: false
-        title: "OAC instance name"
-        description: "Oracle Analytics Cloud (OAC) instance name"
+  analytics_instance_name:
+    type: string
+    default: "OAC"
+    visible: true
+    required: false
+    title: "OAC instance name"
+    description: "Oracle Analytics Cloud (OAC) instance name"
 
 
