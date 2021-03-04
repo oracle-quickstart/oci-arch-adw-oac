@@ -54,7 +54,7 @@ variableGroups:
   - analytics_instance_license_type
   - analytics_instance_name
   - catalog_display_name
-
+  - release
     
 variables:
 
@@ -333,5 +333,11 @@ variables:
     required: false
     title: "OAC instance name"
     description: "Oracle Analytics Cloud (OAC) instance name"
+
+  release:
+    type: string
+    required: false
+    visible: false
+    title: "Reference Architecture Release (OCI Architecture Center)"
 
 

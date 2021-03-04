@@ -16,4 +16,5 @@ resource "oci_analytics_analytics_instance" "test_analytics_instance" {
         capacity_type  = var.analytics_instance_capacity_capacity_type
         capacity_value = var.analytics_instance_capacity_capacity_value
     }
+    defined_tags = {"${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }

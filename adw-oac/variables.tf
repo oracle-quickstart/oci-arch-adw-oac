@@ -2,21 +2,17 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 # Variables
-variable "tenancy_ocid" {
-}
-
-variable "compartment_ocid" {
-}
-
+variable "tenancy_ocid" {}
+variable "compartment_ocid" {}
 variable "user_ocid" {}
-
 variable "fingerprint" {}
-
 variable "private_key_path" {}
+variable "region" {}
 
-variable "region" {
+variable "release" {
+  description = "Reference Architecture Release (OCI Architecture Center)"
+  default     = "1.0"
 }
-
 
 variable "autonomous_database_cpu_core_count" {
   default = "1"

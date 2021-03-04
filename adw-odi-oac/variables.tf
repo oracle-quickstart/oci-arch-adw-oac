@@ -9,6 +9,11 @@ variable "user_ocid" {}
 variable "fingerprint" {}
 variable "private_key_path" {}
 
+variable "release" {
+  description = "Reference Architecture Release (OCI Architecture Center)"
+  default     = "1.0"
+}
+
 variable "service_name" {
   default = ""
 }
@@ -181,7 +186,7 @@ variable "analytics_instance_license_type" {
 }
 
 variable "analytics_instance_name" {
-  default = "OAC"
+  default = "OAC5"
 }
 
 variable "analytics_instance_idcs_access_token" {}
