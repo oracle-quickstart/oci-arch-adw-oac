@@ -5,7 +5,7 @@ resource "oci_objectstorage_bucket" "dataflow_logs_bucket" {
     #Required
     compartment_id = var.compartment_ocid
     name = var.dataflow_logs_bucket_name
-    namespace = var.bucket_namespace
+    namespace = data.oci_objectstorage_namespace.user_namespace.namespace
 
     #Optional
     access_type = var.bucket_access_type

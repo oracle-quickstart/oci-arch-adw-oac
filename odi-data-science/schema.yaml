@@ -1,0 +1,456 @@
+## Copyright © 2020, Oracle and/or its affiliates. 
+## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
+title: "Create Oracle Data Integrator, Oracle Streaming Service, and Oracle Data Science in Oracle Cloud Infrastructure"
+stackDescription: "Deploy Oracle Data Integrator, Oracle Streaming Service, and Oracle Data Science in Oracle Cloud Infrastructure."
+schemaVersion: 1.1.0
+version: "20210305"
+locale: "en"
+
+variableGroups:
+- title: General Configuration
+  visible: false
+  variables:
+  - tenancy_ocid
+
+- title: Required Configuration
+  visible: true  
+  variables:
+  - compartment_ocid
+  - region
+
+- title: Optional Configuration
+  visible: true
+  variables: 
+  - show_advanced
+  - generate_public_ssh_key
+  - public_ssh_key
+  - bucket_name
+  - bucket_access_type
+  - bucket_storage_tier
+  - bucket_versioning
+  - catalog_display_name
+  - project_description
+  - project_display_name
+  - notebook_session_display_name
+  - notebook_session_notebook_session_configuration_details_shape
+  - notebook_session_notebook_session_configuration_details_block_storage_size_in_gbs
+  - stream_pool_name
+  - stream_name
+  - stream_partitions
+  - stream_retention_in_hours
+  - dataflow_logs_bucket_name
+  - application_display_name
+  - application_driver_shape
+  - application_executor_shape
+  - application_file_uri
+  - application_language
+  - application_num_executors
+  - application_spark_version
+  - application_class_name
+  - application_description
+  - workspace_display_name
+  - workspace_description
+  - workspace_is_private_network_enabled
+  - service_connector_display_name
+  - service_connector_source_kind
+  - service_connector_source_cursor_kind
+  - service_connector_target_kind
+  - service_connector_target_bucket
+  - service_connector_target_object_name_prefix
+  - service_connector_description
+  - ocir_repo_name
+  - ocir_user_name
+  - ocir_user_password
+
+    
+variables:
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    visibile: true
+    title: Compartment
+    description: "Compartment where you want to create the solution resources"
+
+  region:
+    type: oci:identity:region:name
+    required: true
+    visibile: true
+    title: Region
+    description: "Region where you want to deploy the resources defined by this stack."
+
+  show_advanced:
+    type: boolean
+    title: "Show advanced options?"
+    description: "Shows advanced options, allowing enable customer managed encryption keys, select your ssh key, and other advanced options. NOTE: Only encryption and ssh key changes are available as Always Free resources, other advanced options may not be available on the Always Free."
+    visible: true
+
+  generate_public_ssh_key:
+    type: boolean
+    title: "Auto-generate public ssh key?"
+    description: "Auto-generate a public key and assign to the compute instances. Uncheck to provide your own public key or leave blank not to use any attach any key to the compute instance."
+    visible:
+      and:
+        - show_advanced
+
+  public_ssh_key:
+    type: oci:core:ssh:publickey
+    title: "SSH Public Key"
+    description: "The public SSH key for the key-pair that you want to use, if you wish to login to the instances over SSH."
+    additionalProps:
+      allowMultiple: true
+    pattern: "((^(ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+\/]+[=]{0,3})( [^,]*)?)(,((ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+\/]+[=]{0,3})( [^,]*)?)*$"
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - generate_public_ssh_key
+
+
+
+  # Optional Configuration
+
+  # Bucket Variables
+  bucket_name:
+    type: string
+    default: "data_bucket"
+    visible: true
+    required: true
+    title: "Name for Object Storage Bucket"
+    description: "Name for Object Storage Bucket"
+
+  bucket_access_type:
+    type: string
+    default: "NoPublicAccess"
+    visible: true
+    required: true
+    title: "Access Type for Object Storage Bucket"
+    description: "Access Type for Object Storage Bucket"
+
+  bucket_storage_tier:
+    type: string
+    default: "Standard"
+    visible: true
+    required: true
+    title: "Tier for Object Storage Bucket"
+    description: "Tier for Object Storage Bucket"
+
+  bucket_versioning:
+    type: string
+    default: "Disabled"
+    visible: true
+    required: true
+    title: "Versioning for Object Storage Bucket"
+    description: "Versioning for Object Storage Bucket"
+
+
+  # Data Catalog Variables
+
+  catalog_display_name:
+    type: string
+    default: "My_Data_Catalog"
+    visible: true
+    required: true
+    title: "Name for Data Catalog"
+    description: "Name for Data Catalog"
+
+  # Data Science Variables
+
+  project_description:
+    type: string
+    default: "Test_Project"
+    visible: true
+    required: true
+    title: "Project Description for Data Science Project"
+    description: "Project Description for Data Science Project"
+
+  project_display_name:
+    type: string
+    default: "My Data Science Project"
+    visible: true
+    required: true
+    title: "Project Display Name for Data Science Project"
+    description: "Project Display Name for Data Science Project"
+
+  notebook_session_display_name:
+    type: string
+    default: "Test Notebook Session"
+    visible: true
+    required: true
+    title: "Notebook Session Display Name for Data Science Project"
+    description: "Notebook Session Display Name for Data Science Project"
+
+  notebook_session_notebook_session_configuration_details_shape:
+    type: oci:core:instanceshape:name
+    default: VM.Standard2.1
+    visible: true
+    required: true
+    title: "VM Shape for Data Science Project"
+    description: "VM Shape for Data Science Project"
+    dependsOn:
+      compartmentId: compartment_ocid
+
+  notebook_session_notebook_session_configuration_details_block_storage_size_in_gbs:
+    type: number
+    minimum: 50
+    maximum: 1024
+    multipleOf: 1
+    default: 50
+    visible: true
+    required: true
+    title: "Block Storage Size for Data Science Project"
+    description: "Block Storage Size for Data Science Project"
+
+  # Streams Variables
+
+  stream_pool_name:
+    type: string
+    default: "Test_Stream_Pool"
+    visible: true
+    required: true
+    title: "Stream Pool Name for Streaming"
+    description: "Stream Pool Name for Streaming"
+
+  stream_name:
+    type: string
+    default: "Test_Stream"
+    visible: true
+    required: true
+    title: "Stream Name for Streaming"
+    description: "Stream Name for Streaming"
+
+  stream_partitions:
+    type: number
+    minimum: 1
+    maximum: 25
+    multipleOf: 1
+    default: 1
+    visible: true
+    required: true
+    title: "Number of Stream Partitions for Streaming"
+    description: "Number of Stream Partitions for Streaming"
+
+  stream_retention_in_hours:
+    type: number
+    minimum: 24
+    maximum: 168
+    multipleOf: 1
+    default: 24
+    visible: true
+    required: true
+    title: "Stream Retention in Hours"
+    description: "Stream Retention in Hours"
+
+  # Data Flow variables 
+
+  dataflow_logs_bucket_name:
+    type: string
+    default: "dataflow-logs"
+    visible: true
+    required: true
+    title: "Log Bucket for Data Flow"
+    description: "Log Bucket for Data Flow"
+
+  application_display_name:
+    type: string
+    default: "Test data flow app"
+    visible: true
+    required: true
+    title: "Application Display Name for Data Flow"
+    description: "Application Display Name for Data Flow"
+
+  application_driver_shape:
+    type: oci:core:instanceshape:name
+    default: "VM.Standard2.1"
+    visible: true
+    required: true
+    title: "Application Driver Shape for Data Flow"
+    description: "Application Driver Shape for Data Flow"
+    dependsOn:
+      compartmentId: compartment_ocid
+
+  application_executor_shape:
+    type: oci:core:instanceshape:name
+    default: "VM.Standard2.1"
+    visible: true
+    required: true
+    title: "Application Executor Shape for Data Flow"
+    description: "Application Executor Shape for Data Flow"
+    dependsOn:
+      compartmentId: compartment_ocid
+
+  application_file_uri:
+    type: string
+    default: "oci://oow_2019_dataflow_lab@bigdatadatasciencelarge/usercontent/oow-lab-2019-java-etl-1.0-SNAPSHOT.jar"
+    visible: true
+    required: false
+    title: "Application File URI for Data Flow"
+    description: "Application File URI for Data Flow"
+
+  application_language:
+    type: string
+    default: "Java"
+    visible: true
+    required: true
+    title: "Application Language for Data Flow"
+    description: "Application Language for Data Flow"
+
+  application_num_executors:
+    type: number
+    minimum: 1
+    maximum: 100 #not sure what this should be
+    multipleOf: 1
+    default: 1
+    visible: true
+    required: true
+    title: "Number of Executors for Data Flow Application"
+    description: "Number of Executors for Data Flow Application"
+
+  application_spark_version:
+    type: string
+    default: "2.4.4"
+    visible: true
+    required: true
+    title: "Application Spark Version for Data Flow"
+    description: "Application Spark Version for Data Flow"
+
+  application_class_name:
+    type: string
+    default: "convert.Convert"
+    visible: true
+    required: true
+    title: "Application Class Name for Data Flow"
+    description: "Application Class Name for Data Flow"
+
+  application_description:
+    type: string
+    default: "Test Java Application"
+    visible: true
+    required: true
+    title: "Application Description for Data Flow"
+    description: "Application Description for Data Flow"
+
+  # Data Integration Service Variables
+
+  workspace_display_name:
+    type: string
+    default: "Test_DI_Workspace"
+    visible: true
+    required: true
+    title: "Workplace Display Name for Data Integration Service"
+    description: "Workplace Display Name for Data Integration Service"
+
+  workspace_description:
+    type: string
+    default: "Test DI Workspace"
+    visible: true
+    required: true
+    title: "Workplace Description for Data Integration Service"
+    description: "Workplace Description for Data Integration Service"
+
+
+    # Service Connector Hub Variables
+  service_connector_display_name:
+    type: string
+    default: "Test_Service_Connector"
+    visible: true
+    required: true
+    title: "Service Connector Hub Display Name"
+    description: "Service Connector Hub Display Name"
+
+        #Source Information
+  service_connector_source_kind:
+    type: string
+    default: "streaming"
+    visible: true
+    required: true
+    title: "Source Kind for Service Connector Hub"
+    description: "Source Kind for Service Connector Hub"
+  
+  service_connector_source_cursor_kind:
+    type: string
+    default: "TRIM_HORIZON"
+    visible: true
+    required: true
+    title: "Cursor Kind for Service Connector Hub"
+    description: "Starts consuming from the oldest available message in the stream."
+
+
+  service_connector_target_kind:
+    type: string
+    default: "objectStorage" 
+    visible: true
+    required: true
+    title: "Target Kind for Service Connector Hub"
+    description: "Selecting the target of object storage."
+
+  service_connector_target_bucket:
+    type: string
+    default: "data_bucket"
+    visible: true
+    required: true
+    title: "Bucket Target for Service Connector Hub"
+    description: "Selecting the target of data_bucket."
+
+  service_connector_target_object_name_prefix:
+    type: string
+    default: "data"
+    visible: true
+    required: true
+    title: "Object Name Prefix for Service Connector Hub"
+    description: "Using the prefix of 'data'."
+
+  service_connector_description:
+    type: string
+    default: "Used to connect streaming to object storage"
+    visible: true
+    required: true
+    title: "Service Connector Hub Description"
+    description: "Describes the use case for the Service Connector Hub."
+
+  service_connector_tasks_kind:
+    type: string
+    default: "function"
+    visible: true
+    required: true
+    title: "Service Connector Hub Task Kind"
+    description: "The kind of task used between the source and target."
+
+  #OCIR Variables
+
+  ocir_repo_name:
+    type: string
+    required: true
+    visibile: true
+    title: "OCIR repository name"
+    description: "Oracle Cloud Infrastructure Registry repository name (for example functions)"
+
+  ocir_user_name:
+    type: string
+    required: true
+    visibile: true
+    title: "OCIR username"
+    description: "Oracle Cloud Infrastructure Registry username (your OCI username)" 
+
+  ocir_user_password:
+    type: password
+    required: true
+    visibile: true
+    title: "OCIR user password"
+    description: "Oracle Cloud Infrastructure Registry user password (your OCI user authtoken)" 
+
+  workspace_is_private_network_enabled:
+    type: boolean
+    default: true
+
+outputs:
+
+  generated_ssh_private_key:
+    title: "Generated SSH Private Key"
+    displayText: "Generated SSH Private Key"
+    type: copyableString
+    visible: true
+    
+

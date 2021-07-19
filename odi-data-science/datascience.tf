@@ -23,3 +23,8 @@ resource "oci_datascience_notebook_session" "test_notebook_session" {
 
     display_name = var.notebook_session_display_name
 }
+
+resource "tls_private_key" "compute_ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
