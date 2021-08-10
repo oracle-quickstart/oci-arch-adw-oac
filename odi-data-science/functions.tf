@@ -2,6 +2,7 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 resource "oci_functions_application" "DecoderApp" {
+  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
   compartment_id = var.compartment_ocid
   display_name   = "DecoderApp"
   subnet_ids     = [oci_core_subnet.app_subnet.id]

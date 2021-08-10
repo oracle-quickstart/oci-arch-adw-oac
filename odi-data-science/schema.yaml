@@ -1,8 +1,8 @@
 ## Copyright © 2020, Oracle and/or its affiliates. 
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
-title: "Create Oracle Data Integrator, Oracle Streaming Service, and Oracle Data Science in Oracle Cloud Infrastructure"
-stackDescription: "Deploy Oracle Data Integrator, Oracle Streaming Service, and Oracle Data Science in Oracle Cloud Infrastructure."
+title: "Create Oracle Streaming Service, Oracle Service Connector Hub, Oracle Data Flow and Oracle Data Science in Oracle Cloud Infrastructure"
+stackDescription: "Deploy Oracle Streaming Service, Oracle Service Connector Hub, Oracle Data Flow and Oracle Data Science in Oracle Cloud Infrastructure."
 schemaVersion: 1.1.0
 version: "20210305"
 locale: "en"
@@ -18,27 +18,54 @@ variableGroups:
   variables:
   - compartment_ocid
   - region
-
-- title: Optional Configuration
-  visible: true
-  variables: 
   - show_advanced
-  - generate_public_ssh_key
-  - public_ssh_key
+  - ocir_repo_name
+  - ocir_user_name
+  - ocir_user_password
+
+- title: Bucket Optional Configuration
+  visible:
+    and:
+      - show_advanced
+  variables:
   - bucket_name
   - bucket_access_type
   - bucket_storage_tier
   - bucket_versioning
+  
+- title: Catalog Optional Configuration
+  visible:
+    and:
+      - show_advanced
+  variables:
   - catalog_display_name
+
+- title: Data Science Optional Configuration
+  visible:
+    and:
+      - show_advanced
+  variables:
   - project_description
   - project_display_name
   - notebook_session_display_name
   - notebook_session_notebook_session_configuration_details_shape
   - notebook_session_notebook_session_configuration_details_block_storage_size_in_gbs
+
+- title: Stream Optional Configuration
+  visible:
+    and:
+      - show_advanced
+  variables:
   - stream_pool_name
   - stream_name
   - stream_partitions
   - stream_retention_in_hours
+
+- title: Data Flow Optional Configuration
+  visible:
+    and:
+      - show_advanced
+  variables:
   - dataflow_logs_bucket_name
   - application_display_name
   - application_driver_shape
@@ -49,9 +76,13 @@ variableGroups:
   - application_spark_version
   - application_class_name
   - application_description
-  - workspace_display_name
-  - workspace_description
   - workspace_is_private_network_enabled
+
+- title: Service Connector Optional Configuration
+  visible:
+    and:
+      - show_advanced
+  variables:
   - service_connector_display_name
   - service_connector_source_kind
   - service_connector_source_cursor_kind
@@ -59,9 +90,7 @@ variableGroups:
   - service_connector_target_bucket
   - service_connector_target_object_name_prefix
   - service_connector_description
-  - ocir_repo_name
-  - ocir_user_name
-  - ocir_user_password
+  - service_connector_tasks_kind
 
     
 variables:
@@ -83,32 +112,8 @@ variables:
   show_advanced:
     type: boolean
     title: "Show advanced options?"
-    description: "Shows advanced options, allowing enable customer managed encryption keys, select your ssh key, and other advanced options. NOTE: Only encryption and ssh key changes are available as Always Free resources, other advanced options may not be available on the Always Free."
+    description: "Shows advanced options, allowing you to modify the default parameters for Streaming, Data Flow, Service Connector Hub, and Data Science"
     visible: true
-
-  generate_public_ssh_key:
-    type: boolean
-    title: "Auto-generate public ssh key?"
-    description: "Auto-generate a public key and assign to the compute instances. Uncheck to provide your own public key or leave blank not to use any attach any key to the compute instance."
-    visible:
-      and:
-        - show_advanced
-
-  public_ssh_key:
-    type: oci:core:ssh:publickey
-    title: "SSH Public Key"
-    description: "The public SSH key for the key-pair that you want to use, if you wish to login to the instances over SSH."
-    additionalProps:
-      allowMultiple: true
-    pattern: "((^(ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+\/]+[=]{0,3})( [^,]*)?)(,((ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+\/]+[=]{0,3})( [^,]*)?)*$"
-    visible:
-      and:
-        - and:
-          - show_advanced
-        - not:
-          - generate_public_ssh_key
-
-
 
   # Optional Configuration
 
@@ -332,25 +337,6 @@ variables:
     title: "Application Description for Data Flow"
     description: "Application Description for Data Flow"
 
-  # Data Integration Service Variables
-
-  workspace_display_name:
-    type: string
-    default: "Test_DI_Workspace"
-    visible: true
-    required: true
-    title: "Workplace Display Name for Data Integration Service"
-    description: "Workplace Display Name for Data Integration Service"
-
-  workspace_description:
-    type: string
-    default: "Test DI Workspace"
-    visible: true
-    required: true
-    title: "Workplace Description for Data Integration Service"
-    description: "Workplace Description for Data Integration Service"
-
-
     # Service Connector Hub Variables
   service_connector_display_name:
     type: string
@@ -394,13 +380,33 @@ variables:
     title: "Bucket Target for Service Connector Hub"
     description: "Selecting the target of data_bucket."
 
+  service_connector_target_batch_rollover_size_in_mbs:
+    type: number
+    minimum: 1
+    maximum: 100
+    default: 10
+    visible: true
+    required: true
+    title: "Target Batch Rollover Size in MBs"
+    description: "Setting target batch rollover size in megabytes."
+
+  service_connector_target_batch_rollover_time_in_ms:
+    type: number
+    minimum: 60000
+    maximum: 420000
+    default: 60000
+    visible: true
+    required: true
+    title: "Target Batch Rollover Time in Milliseconds"
+    description: "Setting the target batch rollover time in milliseconds."
+
   service_connector_target_object_name_prefix:
     type: string
     default: "data"
     visible: true
     required: true
     title: "Object Name Prefix for Service Connector Hub"
-    description: "Using the prefix of 'data'."
+    description: "Setting object name prefix of data pulled from the Streaming service."
 
   service_connector_description:
     type: string
@@ -418,6 +424,26 @@ variables:
     title: "Service Connector Hub Task Kind"
     description: "The kind of task used between the source and target."
 
+  service_connector_tasks_batch_size_in_kbs:
+    type: number
+    minimum: 1
+    maximum: 6143
+    default: 5120
+    visible: true
+    required: true
+    title: "Task Batch Size in KBs"
+    description: "Setting task batch sixe in kilobytes."
+
+  service_connector_tasks_batch_time_in_sec:
+    type: number
+    minimum: 60
+    maximum: 600
+    default: 60
+    visible: true
+    required: true
+    title: "Task Batch Time in Seconds"
+    description: "Setting task batch time in seconds."
+
   #OCIR Variables
 
   ocir_repo_name:
@@ -425,7 +451,7 @@ variables:
     required: true
     visibile: true
     title: "OCIR repository name"
-    description: "Oracle Cloud Infrastructure Registry repository name (for example functions)"
+    description: "Oracle Cloud Infrastructure Registry repository name"
 
   ocir_user_name:
     type: string
@@ -444,13 +470,3 @@ variables:
   workspace_is_private_network_enabled:
     type: boolean
     default: true
-
-outputs:
-
-  generated_ssh_private_key:
-    title: "Generated SSH Private Key"
-    displayText: "Generated SSH Private Key"
-    type: copyableString
-    visible: true
-    
-

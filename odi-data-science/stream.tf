@@ -2,6 +2,7 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 resource "oci_streaming_stream" "test_stream" {
+    depends_on = [oci_identity_policy.ODIDataSciencePolicies]
     name = var.stream_name
     partitions = var.stream_partitions
 

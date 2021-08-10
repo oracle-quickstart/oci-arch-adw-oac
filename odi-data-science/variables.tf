@@ -3,13 +3,12 @@
 
 # Variables
 
-variable "tenancy_ocid" {}
 variable "region" {}
+variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
-
-variable "generate_public_ssh_key" {
-  default = true
-}
+#variable "user_ocid" {}
+#variable "fingerprint" {}
+#variable "private_key_path" {}
 
 #Object Storage Bucket Variables
 
@@ -121,19 +120,6 @@ variable "application_description" {
   default = "Test Java Application"
 }
 
-# Variables for Data Integration Service
-variable "workspace_display_name" {
-  default = "Test_DI_Workspace"
-}
-
-variable "workspace_description" {
-  default = "Test DI workspace"
-}
-
-variable "workspace_is_private_network_enabled" {
-  default = true
-}
-
 # Functions/OCIR Variables
 
 variable "release" {
@@ -144,8 +130,6 @@ variable "release" {
 variable "ocir_repo_name" {
   default = "decoder"
 }
-
-
 
 variable "ocir_user_name" {
   default = ""
@@ -159,8 +143,6 @@ locals {
   ocir_docker_repository = join("", [lower(lookup(data.oci_identity_regions.oci_regions.regions[0], "key" )), ".ocir.io"])
   ocir_namespace = lookup(data.oci_identity_tenancy.oci_tenancy, "name" )
 }
-
-
 
 #Service Connector Variables
 
@@ -188,10 +170,26 @@ variable "service_connector_target_object_name_prefix" {
   default = "data"
 }
 
+variable "service_connector_target_batch_rollover_size_in_mbs" {
+  default = 10
+}
+
+variable "service_connector_target_batch_rollover_time_in_ms" {
+  default = 60000
+}
+
 variable "service_connector_description" {
   default = "Used to connect streaming to object storage"
 }
 
 variable "service_connector_tasks_kind" {
   default = "function"
+}
+
+variable "service_connector_tasks_batch_size_in_kbs" {
+  default = 5120
+}
+
+variable "service_connector_tasks_batch_time_in_sec" {
+  default = 60
 }

@@ -2,6 +2,7 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 resource "oci_objectstorage_bucket" "dataflow_logs_bucket" {
+    depends_on = [oci_identity_policy.ODIDataSciencePolicies]
     #Required
     compartment_id = var.compartment_ocid
     name = var.dataflow_logs_bucket_name
@@ -14,6 +15,7 @@ resource "oci_objectstorage_bucket" "dataflow_logs_bucket" {
 }
 
 resource "oci_dataflow_application" "test_application" {
+    depends_on = [oci_identity_policy.ODIDataSciencePolicies]
     #Required
     compartment_id = var.compartment_ocid
     display_name = var.application_display_name
