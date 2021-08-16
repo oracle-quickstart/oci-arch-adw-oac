@@ -10,7 +10,7 @@ Data Flow is used to run your Apache Spark applications.
 
 **Note**: A set of policies and two dynamic groups are created in this Resource Manager stack allowing an administrator to deploy this solution. These are listed in "policies.tf" file and can be used as a reference when fitting this deployment to your specific IAM configuration.
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/Carl-Lejerskar/odi-datascience/archive/0.0.2.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/Carl-Lejerskar/oci-arch-adw-oac/releases/download/v0.1/odi-data-science.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 
@@ -30,10 +30,10 @@ Data Flow is used to run your Apache Spark applications.
 
 8. Navigate to your Service Connector Hub Instance (Analytics & AI -> Messagin -> Service Connector Hub).
    
-9. Click "Edit":
+9.  Click "Edit":
    ![](./images/edit_svc.png)
 
-10. Scroll down the page and click the three create buttons for the policies required for the Service Connector Hub: 
+11. Scroll down the page and click the three create buttons for the policies required for the Service Connector Hub: 
    ![](./images/svc-policy-creation.png) 
 
 
