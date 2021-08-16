@@ -88,9 +88,13 @@ variableGroups:
   - service_connector_source_cursor_kind
   - service_connector_target_kind
   - service_connector_target_bucket
+  - service_connector_target_batch_rollover_size_in_mbs
+  - service_connector_target_batch_rollover_time_in_ms
   - service_connector_target_object_name_prefix
   - service_connector_description
   - service_connector_tasks_kind
+  - service_connector_tasks_batch_size_in_kbs
+  - service_connector_tasks_batch_time_in_sec
 
     
 variables:
