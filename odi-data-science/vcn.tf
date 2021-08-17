@@ -1,4 +1,4 @@
-## Copyright © 2020, Oracle and/or its affiliates. 
+## Copyright © 2021, Oracle and/or its affiliates. 
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 # Create VCN
@@ -103,7 +103,7 @@ resource "oci_core_security_list" "appsl" {
   }
 }
 
-# Create regional subnet for ODI server in vcn
+# Create regional subnet
 
 resource "oci_core_subnet" "app_subnet" {
   depends_on = [oci_identity_policy.ODIDataSciencePolicies]

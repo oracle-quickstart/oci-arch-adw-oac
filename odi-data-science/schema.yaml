@@ -12,6 +12,7 @@ variableGroups:
   visible: false
   variables:
   - tenancy_ocid
+  - release
 
 - title: Required Configuration
   visible: true  
@@ -309,7 +310,7 @@ variables:
   application_num_executors:
     type: number
     minimum: 1
-    maximum: 100 #not sure what this should be
+    maximum: 100 
     multipleOf: 1
     default: 1
     visible: true
@@ -471,6 +472,12 @@ variables:
     title: "OCIR user password"
     description: "Oracle Cloud Infrastructure Registry user password (your OCI user authtoken)" 
 
+
+  release:
+    type: string
+    required: false
+    visible: false
+    title: "Reference Architecture Release (OCI Architecture Center)"
   workspace_is_private_network_enabled:
     type: boolean
     default: true

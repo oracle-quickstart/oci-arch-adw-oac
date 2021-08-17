@@ -6,6 +6,15 @@ This data can then be leveraged with Oracle Data Science. Oracle Data Science is
 
 Data Flow is used to run your Apache Spark applications.
 
+## Prerequisites
+
+- Permission to `manage` the following types of resources in your Oracle Cloud Infrastructure tenancy: `vcns`, `nat-gateways`, `route-tables`, `subnets`, `service-gateways`, `security-lists`, `stream`, `stream-pull`, `stream-push`, `stream-pools`, `serviceconnectors`, `dataflow-family`, and `functions-family`.
+
+- Quota to create the following resources: 1 VCN, 1 subnet, 1 Internet Gateway, 1 NAT Gateway, 1 Service Gateway, 2 route rules, 1 stream/stream pool, 1 Fn App, 1 Fn Function, 2 Buckets, 1 Data Flow App, 1 Data Science Project/Notebook and 1 Service connector Hub.
+
+If you don't have the required permissions and quota, contact your tenancy administrator. See [Policy Reference](https://docs.cloud.oracle.com/en-us/iaas/Content/Identity/Reference/policyreference.htm), [Service Limits](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm), [Compartment Quotas](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcequotas.htm).
+
+
 ## Deploy Using Oracle Resource Manager
 
 **Note**: A set of policies and two dynamic groups are created in this Resource Manager stack allowing an administrator to deploy this solution. These are listed in "policies.tf" file and can be used as a reference when fitting this deployment to your specific IAM configuration.
@@ -36,6 +45,7 @@ Data Flow is used to run your Apache Spark applications.
 11. Scroll down the page and click the three create buttons for the policies required for the Service Connector Hub: 
    ![](./images/svc-policy-creation.png) 
 
+## Deploy Using Oracle Resource Manager
 
 ## Terraform Provider for Oracle Cloud Infrastructure
 The OCI Terraform Provider is now available for automatic download through the Terraform Provider Registry. 
@@ -57,7 +67,24 @@ Now, you'll want a local copy of this repo. You can make that with the commands:
 ## Prerequisites
 First off, you'll need to do some pre-deploy setup.  That's all detailed [here](https://github.com/cloud-partners/oci-prerequisites).
 
-Secondly, create a `terraform.tfvars` file and populate with the following information:
+Additionally you'll need to do some pre-deploy setup for Docker and Fn Project inside your machine:
+
+```
+sudo su -
+yum update
+yum install yum-utils
+yum-config-manager --enable *addons
+yum install docker-engine
+groupadd docker
+service docker restart
+usermod -a -G docker opc
+chmod 666 /var/run/docker.sock
+exit
+curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
+exit
+```
+
+Next create a `terraform.tfvars` file and populate with the following information:
 
 ```
 # Authentication
@@ -65,9 +92,6 @@ tenancy_ocid         = "<tenancy_ocid>"
 user_ocid            = "<user_ocid>"
 fingerprint          = "<finger_print>"
 private_key_path     = "<pem_private_key_path>"
-
-# SSH Keys
-ssh_public_key  = "<public_ssh_key_path>"
 
 # Region
 region = "<oci_region>"
@@ -77,7 +101,6 @@ compartment_ocid = "<compartment_ocid>"
 
 # Object Storage
 bucket_namespace = "<enter_tenancy_name_here>"
-
 
 ````
 
