@@ -77,7 +77,6 @@ variableGroups:
   - application_spark_version
   - application_class_name
   - application_description
-  - workspace_is_private_network_enabled
 
 - title: Service Connector Optional Configuration
   visible:
@@ -472,12 +471,8 @@ variables:
     title: "OCIR user password"
     description: "Oracle Cloud Infrastructure Registry user password (your OCI user authtoken)" 
 
-
   release:
     type: string
     required: false
     visible: false
     title: "Reference Architecture Release (OCI Architecture Center)"
-  workspace_is_private_network_enabled:
-    type: boolean
-    default: true
