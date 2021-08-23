@@ -1,6 +1,6 @@
 # streaming-data-science
 
-This architecture uses Oracle Streams for ingesting continuous, high-volume streams of data into object storage through an integration made with Oracle's Service Connector Hub.
+This architecture uses OCI Streaming for ingesting continuous, high-volume streams of data into object storage through an integration made with Oracle's Service Connector Hub.
 
 This data can then be leveraged with Oracle Data Science. Oracle Data Science is used to build, train, and manage machine learning (ML) models in Oracle Cloud Infrastructure.
 
