@@ -1,5 +1,8 @@
+## Copyright © 2021, Oracle and/or its affiliates. 
+## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
 resource "oci_sch_service_connector" "test_service_connector" {
-    depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+    depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
     #Required
     compartment_id = var.compartment_ocid
     display_name = var.service_connector_display_name

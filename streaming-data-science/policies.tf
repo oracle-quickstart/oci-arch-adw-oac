@@ -1,4 +1,8 @@
+## Copyright © 2021, Oracle and/or its affiliates. 
+## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
 resource "oci_identity_dynamic_group" "FunctionsServiceDynamicGroup" {
+  provider = oci.homeregion
   name = "FunctionsServiceDynamicGroup"
   description = "FunctionsServiceDynamicGroup"
   compartment_id = var.tenancy_ocid
@@ -10,6 +14,7 @@ resource "oci_identity_dynamic_group" "FunctionsServiceDynamicGroup" {
 }
 
 resource "oci_identity_dynamic_group" "DSDynamicGroup" {
+  provider = oci.homeregion
   name = "DSDynamicGroup"
   description = "DSDynamicGroup"
   compartment_id = var.tenancy_ocid
@@ -20,10 +25,11 @@ resource "oci_identity_dynamic_group" "DSDynamicGroup" {
   }
 }
 
-resource "oci_identity_policy" "ODIDataSciencePolicies" {
+resource "oci_identity_policy" "StreamingDataSciencePolicies" {
   depends_on = [oci_identity_dynamic_group.FunctionsServiceDynamicGroup,
                 oci_identity_dynamic_group.DSDynamicGroup]
-  name = "ODIDataSciencePolicies"
+  provider = oci.homeregion
+  name = "StreamingDataSciencePolicies"
   description = "Example List of Policies Required for this Stack"
   compartment_id = var.tenancy_ocid
   statements     = [

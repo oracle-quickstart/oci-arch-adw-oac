@@ -4,7 +4,7 @@
 # Create VCN
 
 resource "oci_core_virtual_network" "vcn" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   cidr_block     = "10.0.0.0/16"
   compartment_id = var.compartment_ocid
   display_name   = "analytics-vcn"
@@ -23,7 +23,7 @@ data "oci_core_services" "test_services" {
 # Create NAT gateway to allow one way outbound internet traffic
 
 resource "oci_core_nat_gateway" "ng" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   display_name   = "nat-gateway"
   vcn_id         = oci_core_virtual_network.vcn.id
@@ -32,7 +32,7 @@ resource "oci_core_nat_gateway" "ng" {
 # Create Service gateway to allow database server access to object storage bucket for backups
 
 resource "oci_core_service_gateway" "sg" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   services {
     service_id = data.oci_core_services.test_services.services.0.id
@@ -45,7 +45,7 @@ resource "oci_core_service_gateway" "sg" {
 # Create route table to connect vcn to internet gateway
 
 resource "oci_core_route_table" "dbrt" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.vcn.id
   display_name   = "db-rt-table"
@@ -59,7 +59,7 @@ resource "oci_core_route_table" "dbrt" {
 # Create route table to associate with ODI server subnet
 
 resource "oci_core_route_table" "apprt" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.vcn.id
   display_name   = "app-rt-table"
@@ -72,7 +72,7 @@ resource "oci_core_route_table" "apprt" {
 # Create security list to associate with the ODI server subnet
 
 resource "oci_core_security_list" "appsl" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   display_name   = "app-security-list"
   vcn_id         = oci_core_virtual_network.vcn.id
@@ -106,7 +106,7 @@ resource "oci_core_security_list" "appsl" {
 # Create regional subnet
 
 resource "oci_core_subnet" "app_subnet" {
-  depends_on = [oci_identity_policy.ODIDataSciencePolicies]
+  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
   cidr_block        = "10.0.0.0/24"
   display_name      = "app-subnet"
   compartment_id    = var.compartment_ocid
