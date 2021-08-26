@@ -12,17 +12,21 @@ variableGroups:
   visible: false
   variables:
   - tenancy_ocid
+  - release
+  - region
 
 - title: Required Configuration
   visible: true  
   variables:
   - compartment_ocid
-  - region
   - autonomous_database_admin_password
   - analytics_instance_idcs_access_token
+  - show_advanced 
 
-- title: Optional Configuration
-  visible: true
+- title: ADW Optional Configuration
+  visible: 
+      and:
+        - show_advanced
   variables:  
   - autonomous_database_cpu_core_count
   - autonomous_database_db_name
@@ -34,15 +38,26 @@ variableGroups:
   - autonomous_database_license_model
   - autonomous_database_data_safe_status
   - autonomous_database_whitelisted_ips
+
+- title: OAC Optional Configuration
+  visible: 
+      and:
+        - show_advanced
+  variables:  
   - analytics_instance_capacity_capacity_type
   - analytics_instance_capacity_capacity_value
   - analytics_instance_feature_set
   - analytics_instance_license_type
   - analytics_instance_name
-  - release
-
     
 variables:
+
+  show_advanced:
+    type: boolean
+    title: "Show advanced options?"
+    description: "Shows advanced options."
+    visible: true
+    default: false
 
   compartment_ocid:
     type: oci:identity:compartment:id

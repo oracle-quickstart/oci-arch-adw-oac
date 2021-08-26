@@ -17,3 +17,12 @@ data "oci_core_app_catalog_subscriptions" "mp_image_subscription" {
     values = [var.mp_listing_resource_version]
   }
 }
+
+data "oci_identity_region_subscriptions" "home_region_subscriptions" {
+    tenancy_id = var.tenancy_ocid
+
+    filter {
+      name   = "is_home_region"
+      values = [true]
+    }
+}

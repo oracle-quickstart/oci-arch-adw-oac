@@ -12,6 +12,7 @@ variableGroups:
   visible: false
   variables:
   - tenancy_ocid
+  - release
 
 - title: Required Configuration
   visible: true  
@@ -24,9 +25,12 @@ variableGroups:
   - new_odi_schema_prefix
   - new_odi_schema_password
   - analytics_instance_idcs_access_token
+  - show_advanced 
 
-- title: Optional Configuration
-  visible: true
+- title: ODI Optional Configuration
+  visible: 
+      and:
+        - show_advanced
   variables:  
   - service_name
   - advanced_mode
@@ -36,9 +40,27 @@ variableGroups:
   - mp_listing_id
   - mp_listing_resource_version
   - mp_listing_resource_id
+
+- title: Bastion Optional Configuration
+  visible: 
+      and:
+        - show_advanced
+  variables: 
   - instance_shape
+
+- title: Networking Optional Configuration
+  visible: 
+      and:
+        - show_advanced
+  variables: 
   - vcn_cidr
   - create_public_subnet
+
+- title: ADW Optional Configuration
+  visible: 
+      and:
+        - show_advanced
+  variables: 
   - autonomous_database_cpu_core_count
   - autonomous_database_db_name
   - autonomous_database_display_name 
@@ -48,15 +70,33 @@ variableGroups:
   - autonomous_database_license_model
   - autonomous_database_data_safe_status
   - autonomous_database_whitelisted_ips
+
+- title: OAC Optional Configuration
+  visible: 
+      and:
+        - show_advanced
+  variables: 
   - analytics_instance_capacity_capacity_type
   - analytics_instance_capacity_capacity_value
   - analytics_instance_feature_set
   - analytics_instance_license_type
   - analytics_instance_name
+
+- title: Catalog Optional Configuration
+  visible: 
+      and:
+        - show_advanced
+  variables:   
   - catalog_display_name
-  - release
     
 variables:
+
+  show_advanced:
+    type: boolean
+    title: "Show advanced options?"
+    description: "Shows advanced options."
+    visible: true
+    default: false
 
   compartment_ocid:
     type: oci:identity:compartment:id

@@ -2,6 +2,7 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 resource "oci_identity_dynamic_group" "odi_dynamic_group" {
+    provider = oci.homeregion
     name = "odi_dynamic_group"
     description = "odi_dynamic_group"
     compartment_id = var.tenancy_ocid
@@ -9,6 +10,7 @@ resource "oci_identity_dynamic_group" "odi_dynamic_group" {
 }
 
 resource "oci_identity_policy" "odi_policy" {
+  provider = oci.homeregion
   depends_on = [oci_identity_dynamic_group.odi_dynamic_group]
   name = "odi_policy"
   description = "odi_policy"
