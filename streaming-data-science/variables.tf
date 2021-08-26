@@ -15,17 +15,17 @@ variable "region" {}
 variable "bucket_name" {
   default = "data_bucket"
 }
-  
+
 
 variable "bucket_access_type" {
-  default ="NoPublicAccess"
+  default = "NoPublicAccess"
 }
 
 variable "bucket_storage_tier" {
   default = "Standard"
 }
 
-variable "bucket_versioning" { 
+variable "bucket_versioning" {
   default = "Disabled"
 }
 
@@ -140,8 +140,8 @@ variable "ocir_user_password" {
 }
 
 locals {
-  ocir_docker_repository = join("", [lower(lookup(data.oci_identity_regions.oci_regions.regions[0], "key" )), ".ocir.io"])
-  ocir_namespace = lookup(data.oci_identity_tenancy.oci_tenancy, "name" )
+  ocir_docker_repository = join("", [lower(lookup(data.oci_identity_regions.oci_regions.regions[0], "key")), ".ocir.io"])
+  ocir_namespace         = lookup(data.oci_identity_tenancy.oci_tenancy, "name")
 }
 
 #Service Connector Variables

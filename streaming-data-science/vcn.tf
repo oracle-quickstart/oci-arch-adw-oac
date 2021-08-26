@@ -4,11 +4,13 @@
 # Create VCN
 
 resource "oci_core_virtual_network" "vcn" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
+  depends_on     = [oci_identity_policy.StreamingDataSciencePolicies]
   cidr_block     = "10.0.0.0/16"
   compartment_id = var.compartment_ocid
   display_name   = "analytics-vcn"
   dns_label      = "tfexamplevcn"
+  defined_tags   = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
 }
 
 data "oci_core_services" "test_services" {
@@ -23,29 +25,33 @@ data "oci_core_services" "test_services" {
 # Create NAT gateway to allow one way outbound internet traffic
 
 resource "oci_core_nat_gateway" "ng" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
+  depends_on     = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   display_name   = "nat-gateway"
   vcn_id         = oci_core_virtual_network.vcn.id
+  defined_tags   = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
 }
 
 # Create Service gateway to allow database server access to object storage bucket for backups
 
 resource "oci_core_service_gateway" "sg" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
+  depends_on     = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   services {
     service_id = data.oci_core_services.test_services.services.0.id
   }
-  display_name   = "service-gateway"
-  vcn_id         = oci_core_virtual_network.vcn.id
+  display_name = "service-gateway"
+  vcn_id       = oci_core_virtual_network.vcn.id
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
 }
 
 
 # Create route table to connect vcn to internet gateway
 
 resource "oci_core_route_table" "dbrt" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
+  depends_on     = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.vcn.id
   display_name   = "db-rt-table"
@@ -54,25 +60,30 @@ resource "oci_core_route_table" "dbrt" {
     destination_type  = "SERVICE_CIDR_BLOCK"
     network_entity_id = oci_core_service_gateway.sg.id
   }
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
 }
 
 # Create route table to associate with ODI server subnet
 
 resource "oci_core_route_table" "apprt" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
+  depends_on     = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.vcn.id
   display_name   = "app-rt-table"
   route_rules {
-    cidr_block        = "0.0.0.0/0"
+    destination       = "0.0.0.0/0"
+    destination_type  = "CIDR_BLOCK"
     network_entity_id = oci_core_nat_gateway.ng.id
   }
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
 }
 
 # Create security list to associate with the ODI server subnet
 
 resource "oci_core_security_list" "appsl" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
+  depends_on     = [oci_identity_policy.StreamingDataSciencePolicies]
   compartment_id = var.compartment_ocid
   display_name   = "app-security-list"
   vcn_id         = oci_core_virtual_network.vcn.id
@@ -101,21 +112,24 @@ resource "oci_core_security_list" "appsl" {
       min = 80
     }
   }
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
 }
 
 # Create regional subnet
 
 resource "oci_core_subnet" "app_subnet" {
-  depends_on = [oci_identity_policy.StreamingDataSciencePolicies]
-  cidr_block        = "10.0.0.0/24"
-  display_name      = "app-subnet"
-  compartment_id    = var.compartment_ocid
-  vcn_id            = oci_core_virtual_network.vcn.id
-  dhcp_options_id   = oci_core_virtual_network.vcn.default_dhcp_options_id
-  route_table_id    = oci_core_route_table.apprt.id
-  security_list_ids = [oci_core_security_list.appsl.id]
+  depends_on                 = [oci_identity_policy.StreamingDataSciencePolicies]
+  cidr_block                 = "10.0.0.0/24"
+  display_name               = "app-subnet"
+  compartment_id             = var.compartment_ocid
+  vcn_id                     = oci_core_virtual_network.vcn.id
+  dhcp_options_id            = oci_core_virtual_network.vcn.default_dhcp_options_id
+  route_table_id             = oci_core_route_table.apprt.id
+  security_list_ids          = [oci_core_security_list.appsl.id]
   prohibit_public_ip_on_vnic = true
-  dns_label         = "subnet1"
+  dns_label                  = "subnet1"
+  defined_tags               = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 
   provisioner "local-exec" {
     command = "sleep 5"

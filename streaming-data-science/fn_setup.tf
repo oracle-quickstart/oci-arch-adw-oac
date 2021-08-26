@@ -9,31 +9,26 @@ resource "null_resource" "Login2OCIR" {
 }
 
 resource "null_resource" "DecoderPush2OCIR" {
-  depends_on = [null_resource.Login2OCIR,  
-                oci_functions_application.DecoderApp]
+  depends_on = [null_resource.Login2OCIR,
+  oci_functions_application.DecoderApp]
 
   provisioner "local-exec" {
-    command = "image=$(docker images | grep decoder | awk -F ' ' '{print $3}') ; docker rmi -f $image &> /dev/null ; echo $image"
+    command     = "image=$(docker images | grep decoder | awk -F ' ' '{print $3}') ; docker rmi -f $image &> /dev/null ; echo $image"
     working_dir = "functions/decoder"
   }
 
   provisioner "local-exec" {
-    command = "fn build --verbose"
+    command     = "fn build --verbose"
     working_dir = "functions/decoder"
   }
 
   provisioner "local-exec" {
-    command = "docker images"
+    command     = "image=$(docker images | grep decoder | awk -F ' ' '{print $3}') ; docker tag $image ${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/decoder:0.0.50"
     working_dir = "functions/decoder"
   }
 
   provisioner "local-exec" {
-    command = "docker tag oci-sch-stream-json-to-csv-python:0.0.50 ${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/decoder:latest"
-    working_dir = "functions/decoder"
-  }
-
-  provisioner "local-exec" {
-    command = "docker push ${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/decoder:latest"
+    command     = "docker push ${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/decoder:0.0.50"
     working_dir = "functions/decoder"
   }
 
