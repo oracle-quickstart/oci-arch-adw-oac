@@ -76,6 +76,3 @@ When you no longer need the deployment, you can run this command to destroy it:
 ![](./images/analysis-hcm-architecture.png)
 
 
-## Reference Archirecture
-
-- [Enterprise data warehousing - an HCM data enrichment example](https://docs.oracle.com/en/solutions/oci-hcm-analysis/index.html)
